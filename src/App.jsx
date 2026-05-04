@@ -210,16 +210,28 @@ function App() {
       return;
     }
 
-    const lineas = carrito.map((item) => {
+    const lineas = carrito.map((item, index) => {
+      const subtotal = Number(item.precio) * item.cantidad;
       const nota = item.nota?.trim() ? ` (Nota: ${item.nota.trim()})` : "";
-      return `- ${item.nombre} x${item.cantidad} = ${currencyFormatter.format(item.precio * item.cantidad)}${nota}`;
+      return `${index + 1}. ${item.nombre}\n   Cantidad: ${item.cantidad}\n   Subtotal: ${currencyFormatter.format(subtotal)}${nota}`;
     });
+
     const mensaje = [
+      "PEDIDO NUEVO",
+      "",
       `Hola ${sucursalActiva.nombre}, quiero realizar este pedido:`,
-      `Tipo de pedido: ${tipoEntrega}`,
-      `Método de pago: ${metodoPago}`,
+      "",
+      "DATOS DEL PEDIDO",
+      `- Sucursal: ${sucursalActiva.nombre}`,
+      `- Tipo de entrega: ${tipoEntrega}`,
+      `- Método de pago: ${metodoPago}`,
+      "",
+      "DETALLE",
       ...lineas,
-      `Total: ${currencyFormatter.format(total)}`,
+      "",
+      "RESUMEN",
+      `- Artículos: ${totalItems}`,
+      `- Total a pagar: ${currencyFormatter.format(total)}`,
     ].join("\n");
 
     const url = `https://wa.me/${sucursalActiva.whatsapp}?text=${encodeURIComponent(mensaje)}`;
@@ -234,11 +246,7 @@ function App() {
       {vistaActiva === "menu" ? (
         <>
           <header className="menu-header">
-            <img
-              src={logo}
-              alt="Logo Pollos Cesar"
-              className="page-logo"
-            />
+            <img src={logo} alt="Logo Pollos Cesar" className="page-logo" />
             <h1>MENU POLLOS CESAR</h1>
             <p>Catálogo interactivo conectado a Supabase</p>
           </header>
