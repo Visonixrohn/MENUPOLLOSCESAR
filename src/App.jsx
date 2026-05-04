@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
 import { supabase } from "./lib/supabase";
+import logo from "./assets/logo.jpg";
 
 const CART_STORAGE_KEY = "pollo-cesar-cart-v1";
 const BRANCH_STORAGE_KEY = "pollo-cesar-branch-v1";
@@ -14,7 +15,7 @@ const sucursales = [
   {
     id: "coxen-hole",
     nombre: "Pollos Cesar Coxen Hole",
-    whatsapp: "33056395",
+    whatsapp: "50433056395",
   },
 ];
 
@@ -234,7 +235,7 @@ function App() {
         <>
           <header className="menu-header">
             <img
-              src="/logo.jpg"
+              src={logo}
               alt="Logo Pollos Cesar"
               className="page-logo"
             />
